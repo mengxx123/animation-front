@@ -1,0 +1,470 @@
+/* reset */
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    background: #f1f1f1;
+    overflow: hidden;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #e9e9e9;
+}
+::-webkit-scrollbar-thumb {
+    background: #999;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: #999;
+}
+
+/* 通用 */
+.navbar-h5 {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.h5-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+}
+/* 侧栏 */
+.sidebar {
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    width: 180px;
+    background-color: #e5e5e5;
+}
+.new-page {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    height: 45px;
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    line-height: 45px;
+    background: #008EB7;
+}
+.new-page:hover {
+    color: #fff;
+}
+/* 预览区 */
+.preview-list {
+    position: absolute;
+    top: 0;
+    bottom: 40px;
+    left: 0;
+    width: 100%;
+    padding-right: 6px;
+    overflow: hidden;
+}
+.preview-list:hover {
+    padding-right: 0;
+    overflow-y: auto;
+}
+.preview-item {
+    height: 180px;
+    padding: 1px;
+    border-bottom: 1px solid #ccc;
+}
+.preview-item:hover {
+    cursor: move;
+}
+.preview-item.active {
+    background-color: #777;
+}
+.viewport-mask {
+    position: relative;
+    top: -150px;
+    z-index: 100;
+    width: 80px;
+    height: 126px;
+    margin: 25px auto;
+}
+.preview-item .viewport-box {
+    position: relative;
+    width: 80px;
+    height: 126px;
+    margin: 25px auto;
+    background: #999;
+}
+.preview-item .viewport {
+    position: absolute;
+    top: -185px;
+    left: -120px;
+    width: 320px;
+    height: 500px;
+    background-size: 100% 100%;
+    border: 1px solid #008000;
+    transform: scale(.25, .25);
+}
+/* 工作空间 */
+.workplace {
+}
+.demo {
+    width: 100%;
+    height: 100%;
+}
+.device {
+    position: absolute;
+    top: 10px;
+    left: 230px;
+    width: 322px;
+}
+.device-body {
+    position: relative;
+    height: 506px;
+    background-color: #999;
+}
+.device-left {
+    position: absolute;
+    left: 0;
+    background-color: #fff;
+    width: 2px;
+    height: 506px;
+}
+.device-right {
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    width: 2px;
+    height: 506px;
+}
+.device-footer {
+    height: 40px;
+    background-color: #fff;
+    border-bottom-left-radius: 32px;
+    border-bottom-right-radius: 32px;
+}
+
+/* 编辑内容 */
+.elem {
+    /* overflow: hidden;*/
+}
+.elem.active {
+    /*border: 1px solid #f00;*/
+}
+.elem-content {
+    width: 100%;
+    height: 100%;
+}
+
+/* 右侧编辑工具 */
+.edit-tool {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 400px;
+    height: 100%;
+    background-color: #fff;
+}
+.edit-tool .tab-content {
+    padding: 15px;
+}
+.edit-tool .form-group {
+    padding: 0px 0;
+}
+.edit-tool .form-group:before,
+.edit-tool .form-group:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.edit-tool .control-label {
+    float: left;
+    width: 100px;
+    margin-right: 10%;
+}
+
+.edit-tool .form-control,
+.edit-tool .minicolors {
+    position: relative;
+    float: left;
+    width: 40%;
+}
+.edit-tool .minicolors .form-control {
+    width: 100%;
+}
+.edit-tool .range {
+    width: 210px;
+}
+.edit-tool .btn {
+    float: left;
+    margin-right: 8px;
+}
+
+/* 展示 */
+.display {
+    display: none;
+}
+.display-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10000;
+    background: #000;
+    opacity: .5;
+}
+.display-device {
+    position: relative;
+    z-index: 10001;
+    width: 340px;
+    height: 560px;
+    padding: 30px 10px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 20px;
+}
+.display-list {
+    position: relative;
+    width: 320px;
+    height: 500px;
+    background: #fff;
+    overflow: hidden;
+}
+.display-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: #999;
+    background-size: 100% 100%;
+}
+.display-tool {
+    position: absolute;
+    z-index: 10002;
+    top: 50%;
+    left: 50%;
+    margin-top: 200px;
+    margin-left: 200px;
+    color: #fff;
+}
+.display-control {
+    width: 32px;
+    height: 60px;
+    margin-bottom: 20px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+}
+.display-control .fa-angle-up,
+.display-control .fa-angle-down {
+    display: block;
+    font-size: 30px;
+    text-align: center;
+}
+.display-control .fa-angle-up,
+.display-control .fa-angle-down:hover {
+    cursor: pointer;
+}
+.display-control .fa-angle-up {
+
+}
+.display-control .fa-angle-down {
+
+}
+
+.display-close {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    z-index: 10004;
+    color: #fff;
+    font-size: 30px;
+}
+.display-close:hover {
+    cursor: pointer;
+}
+.item1 {
+    background-color: #f00;
+}
+.item2 {
+    background-color: #f90;
+}
+.item3 {
+    background-color: #09f;
+}
+.item4 {
+    background-color: #0f9;
+}
+
+/* 拉伸 */
+.select-elem {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    border: 1px dashed #00bbcc;
+}
+.select-elem:hover {
+    cursor: move;
+}
+.scale {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background-color: #fff;
+    border: 1px solid #08a1ef;
+}
+.scale-n {
+    top: -4px;
+    left: 50%;
+    cursor: n-resize;
+}
+.scale-ne {
+    top: -4px;
+    right: -4px;
+    border-radius: 4px;
+    cursor: ne-resize;
+}
+.scale-e {
+    top: 50%;
+    right: -4px;
+    cursor: e-resize;
+}
+.scale-se {
+    right: -4px;
+    bottom: -4px;
+    border-radius: 4px;
+    cursor: se-resize;
+}
+.scale-s {
+    bottom: -4px;
+    left: 50%;
+    cursor: s-resize;
+}
+.scale-sw {
+    bottom: -4px;
+    left: -4px;
+    border-radius: 4px;
+    cursor: sw-resize;
+}
+.scale-w {
+    top: 50%;
+    left: -4px;
+    cursor: w-resize;
+}
+.scale-nw {
+    top: -4px;
+    left: -4px;
+    border-radius: 4px;
+    cursor: nw-resize;
+}
+
+/* 选择图片 */
+.image-selector {
+    display: none;
+}
+.select-img-list {
+    overflow: hidden;
+}
+.select-img-item {
+    float: left;
+    width: 100px;
+    height: 100px;
+    margin-right: 5px;
+    background-color: #999;
+    border: 1px solid #008000;
+}
+.select-img-item:hover {
+    cursor: pointer;
+}
+.select-img-item img {
+    width: 100px;
+    height: 100px;
+}
+
+/* 右键菜单 */
+.elem-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.sortable-placeholder {
+    height: 100px;
+    border: 1px dashed #09c;
+}
+
+/* */
+.operate-elem {
+    position: absolute;
+    top: 100px;
+    left: 300px;
+    width: 200px;
+    height: 200px;
+    background: #fff url("/static/img/logo.jpg") no-repeat center;
+}
+
+/* 查看代码 */
+.code-box {
+    display: none;
+    max-width: 500px;
+}
+
+/* v2========= */
+@keyframes demo-anim {
+    0% {
+        left: 0;
+    }
+    50% {
+        left: 300px;
+    }
+    100% {
+        left: 0;
+    }
+}
+.demo-anim {
+    -webkit-animation-name: demo-anim;
+    animation-name: demo-anim;
+}
+/* 时间轴 */
+.timeline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 900px;
+    height: 120px;
+    padding: 16px;
+    background-color: #fff;
+}
+.timeline .range {
+    width: 800px;
+}
+.timeline .canvas-box {
+    position: relative;
+    width: 800px;
+    height: 30px;
+}
+.timeline .canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 800px;
+    height: 30px;
+}
+.timeline .positon-item {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #999;
+    border-radius: 10px;
+    cursor: e-resize;
+}
