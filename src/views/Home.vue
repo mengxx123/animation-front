@@ -2,256 +2,66 @@
     <my-page title="CSS3 动画">
         <div class="h5-container">
             <div class="workplace">
-                <div id="target" class="operate-elem"></div>
+                <div id="target" class="operate-elem" :style="elemStyle"></div>
             </div>
         </div>
         <!-- 右侧工具 -->
         <div class="edit-tool">
-            <ul id="tool-tab" class="nav nav-tabs">
-                <div class="nav-item active"><a class="nav-link" href="#tab11" data-toggle="tab">基本</a></div>
-                <!--<div class="nav-item"><a id="tab-style" class="nav-link" href="#tab12" data-toggle="tab">样式</a></div>
-                <div class="nav-item"><a class="nav-link" href="#tab13" data-toggle="tab">排列</a></div>
-                <div class="nav-item"><a id="tab-anim" class="nav-link" href="#tab14" data-toggle="tab">动画</a></div>-->
-            </ul>
             <div class="tab-content">
                 <div id="tab11" class="tab-pane fade active in">
                     <div class="form-horizontal form-op">
-                        <div class="form-group">
+                        <div class="form-item">
                             <label class="control-label">过渡时间（s）</label>
-                            <input id="duration" class="form-control" placeholder="0.5" type="number">
+                            <ui-text-field class="demo-input" v-model.number="options.duration" type="number" hintText="0.5" />
+                            <!-- <input id="duration" class="form-control" placeholder="0.5" type="number"> -->
                         </div>
-                        <div class="form-group">
+                        <div class="form-item">
                             <label class="control-label">过渡效果</label>
-                            <select id="timing-function" class="form-control">
-                                <option>ease</option>
-                                <option>linear</option>
-                                <option>ease-in</option>
-                                <option>ease-out</option>
-                                <option>ease-in-out</option>
-                            </select>
+                            <ui-select-field class="demo-input" v-model="options.timingFunction">
+                                <ui-menu-item value="ease" title="ease"/>
+                                <ui-menu-item value="linear" title="linear"/>
+                                <ui-menu-item value="linear" title="linear"/>
+                                <ui-menu-item value="ease-in" title="ease-in"/>
+                                <ui-menu-item value="ease-out" title="ease-out"/>
+                                <ui-menu-item value="ease-in-out" title="ease-in-out"/>
+                            </ui-select-field>
                         </div>
-                        <div class="form-group">
+                        <div class="form-item">
                             <label class="control-label">旋转</label>
-                            <div id="rotate"></div>
+                            <ui-slider class="demo-slider" v-model="options.rotate" :step="1" :min="-360" :max="360"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-item">
                             <label class="control-label">X轴位移</label>
-                            <div id="translateX"></div>
+                            <ui-slider class="demo-slider" v-model="options.translateX" :step="1" :min="-500" :max="500"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-item">
                             <label class="control-label">Y轴位移</label>
-                            <div id="translateY"></div>
+                            <ui-slider class="demo-slider" v-model="options.translateY" :step="1" :min="-500" :max="500"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-item">
                             <label class="control-label">X轴缩放</label>
-                            <div id="scaleX"></div>
+                            <ui-slider class="demo-slider" v-model="options.scaleX" :step="0.1" :min="-5" :max="5"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-item">
                             <label class="control-label">Y轴缩放</label>
-                            <div id="scaleY"></div>
+                            <ui-slider class="demo-slider" v-model="options.scaleY" :step="0.1" :min="-5" :max="5"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-item">
                             <label class="control-label">X轴倾斜</label>
-                            <div id="skewX"></div>
+                            <ui-slider class="demo-slider" v-model="options.skewX" :step="1" :min="-180" :max="180"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-item">
                             <label class="control-label">Y轴倾斜</label>
-                            <div id="skewY"></div>
+                            <ui-slider class="demo-slider" v-model="options.skewY" :step="1" :min="-180" :max="180"/>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label"></label>
-                            <button id="play" class="btn btn-primary">播放动画</button>
-                            <button id="view-code" class="btn btn-primary">查看代码</button>
+                        <div class="form-item">
+                            <ui-raised-button class="btn" label="播放动画" primary @click="play" />
+                            <ui-raised-button class="btn" label="生成代码" @click="viewCode" />
                         </div>
-
-                    </div>
-                </div>
-
-                <div id="tab12" class="tab-pane fade">
-                    <div class="">
-                        <div id="editor-style-box">
-                            <div class="form-group">
-                                <label class="control-label">边框样式</label>
-                                <select id="editor-border-style" class="form-control">
-                                    <option value="none">无边框</option>
-                                    <option value="solid">直线</option>
-                                    <option value="dashed">虚线</option>
-                                    <option value="dotted">点</option>
-                                    <option value="double">双线</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">边框大小</label>
-                                <input id="editor-border-width" class="form-control" type="number">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">边框颜色</label>
-                                <input id="editor-border-color" class="form-control">
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label class="control-label">阴影</label>
-                                <select class="form-control">
-                                    <option value="none">无边框</option>
-                                    <option value="solid">直线</option>
-                                    <option value="dashed">虚线</option>
-                                    <option value="dotted">点</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">不透明度</label>
-                                <input id="editor-opacity" class="form-control" type="number" max="100" min="0" step="1">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">圆角</label>
-                                <input id="editor-border-radius" class="form-control" min="0" type="number">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div id="tab13" class="tab-pane fade">
-                    <div class="">
-                    </div>
-                </div>
-                <div id="tab14" class="tab-pane fade">
-                    <div class="">
-                        <div id="editor-anim-box2">
-                            <div class="form-group">
-                                <label class="control-label">动画方式</label>
-                                <select id="editor-anim-name" class="form-control">
-                                    <optgroup label="默认">
-                                        <option value="">无</option>
-                                    </optgroup>
-                                    <optgroup label="强调">
-                                        <option value="bounce">弹跳</option>
-                                        <option value="flash">闪烁</option>
-                                        <option value="pulse">脉动</option>
-                                        <option value="rubberBand">橡皮圈</option>
-                                        <option value="shake">摇动</option>
-                                        <option value="swing">摆动</option>
-                                        <option value="tada">波动</option>
-                                        <option value="wobble">晃动</option>
-                                    </optgroup>
-                                    <optgroup label="进入">
-                                        <option value="fadeIn">淡入</option>
-                                        <option value="zoomInDown">底部进入</option>
-                                    </optgroup>
-                                    <optgroup label="退出">
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-                            <div id="editor-anim-box">
-                                <hr>
-                                <div class="form-group">
-                                    <label class="control-label">开始时间（毫秒）</label>
-                                    <input id="editor-anim-delay" class="form-control" type="number">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">动画时间（毫秒）</label>
-                                    <input id="editor-anim-duration" class="form-control" type="number">
-                                </div>
-                                <hr>
-                                <div class="form-group">
-                                    <label class="control-label">执行次数</label>
-                                    <select id="editor-anim-count" class="form-control">
-                                        <optgroup label="次数">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                        </optgroup>
-                                        <optgroup label="循环">
-                                            <option value="linear">无限循环</option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <!--<button id="editor-add-anim" class="btn btn-primary">添加动画</button>-->
-                                    <button id="editor-play-anim" class="btn btn-success">播放动画</button>
-                                </div>
-                            </div>
-                        </div>
-
 
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- 预览 -->
-        <div id="display" class="display">
-            <div class="display-mask"></div>
-            <div class="display-device">
-                <ul class="display-list">
-                    <li class="display-item item1">1</li>
-                    <li class="display-item item2">2</li>
-                    <li class="display-item item3">3</li>
-                    <li class="display-item item4">4</li>
-                </ul>
-            </div>
-            <div class="display-tool">
-                <div class="display-control">
-                    <i id="display-prev" class="fa fa-angle-up"></i>
-                    <i id="display-next" class="fa fa-angle-down"></i>
-                </div>
-                <p>可以通过左右方向键控制播放</p>
-            </div>
-            <div id="display-close" class="display-close">×</div>
-        </div>
-        <div id="resize-tool" class="select-elem">
-            <!--
-            <div class="scale scale-n"></div>
-            <div class="scale scale-ne"></div>
-            <div class="scale scale-e"></div>
-            <div class="scale scale-se"></div>
-            <div class="scale scale-s"></div>
-            <div class="scale scale-sw"></div>
-            <div class="scale scale-w"></div>
-            <div class="scale scale-nw"></div>
-            -->
-        </div>
-        <!-- 替换图片对话框 -->
-        <div id="image-select-dialog" class="modal fade">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                        <h4 class="modal-title">选择图片</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div id="">
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="image-selector" class="image-selector">
-            <ul id="select-img-list" class="select-img-list">
-                <li class="select-img-item">
-                    <img src="asset/img/demo/visit-bg.jpg">
-                </li>
-                <li class="select-img-item">
-                    <img src="asset/img/avatar.jpg">
-                </li>
-                <li class="select-img-item">
-                    <img src="asset/img/demo/visit1.png">
-                </li>
-                <li class="select-img-item">
-                    <img src="asset/img/demo/visit2.png">
-                </li>
-            </ul>
         </div>
 
         <!-- 查看代码 -->
@@ -260,6 +70,14 @@
     asd: 1
 }</pre>
         </div>
+        <ui-drawer class="code-drawer" right :open="codeVisible" @close="toggle()">
+            <ui-appbar title="生成代码">
+                <ui-icon-button icon="close" @click="toggle" slot="left" />
+            </ui-appbar>
+            <div class="body">
+                <pre>{{ code }}</pre>
+            </div>
+        </ui-drawer>
     </my-page>
 </template>
 
@@ -268,279 +86,159 @@
     export default {
         data () {
             return {
+                options: {
+                    rotate: 0,
+                    translateX: 0,
+                    translateY: 0,
+                    scaleX: 0,
+                    scaleY: 0,
+                    skewX: 0,
+                    skewY: 0,
+                    duration: 0.5,
+                    timingFunction: 'ease'
+                },
+                code: '',
+                codeVisible: false
+            }
+        },
+        computed: {
+            elemStyle() {
+                return {
+                }
             }
         },
         mounted() {
             this.init()
         },
         methods: {
+            toggle() {
+                this.codeVisible = !this.codeVisible
+            },
             init() {
-                var $curElem;
-                var $elemMenu = $('#elem-menu');
-                var $previewMenu = $('#preview-menu');
-
-                function selectElem($this) {
-
-                    disableActiveElem();
-
-                    $curElem = $this;
-                    $this.addClass('active');
-                    $('#resize-tool').appendTo($this);
-                    $('#resize-tool').show();
-
-                    $this.draggable({
-                        cursor: "move",
-                        scroll: false,
-                        opacity: 0.5,
-                        //containment: '.device-body',
-                        distance: 5,
-                        zIndex: 10000,
-                        drag: function (event, ui) {
-                            //alert(1);
-                        }
-                    });
-                    $this.resizable({
-                        handles: 'n, e, s, w, ne, se, sw, nw'
-                    });
-                    $this.draggable('enable');
-                    $this.resizable('enable');
-
-                    if ($this.hasClass('elem-text')) {
-                        var $content = $this.find('.elem-content');
-                        dealTextElem($this);
-                    } else if ($this.hasClass('elem-img')) {
-                        var $content = $this.find('.elem-content');
-                        dealImageElem($this);
-                    }
-
-                    $('.tab-content').show();
-                    /*$('#tab11').show();
-                     $('#tab12').show();
-                     $('#tab13').show();
-                     $('#tab14').show();*/
-                }
-
-                // 编辑区域
-                $(document).on('click', '.elem', function (e) {
-                    e.stopPropagation();
-
-                    if (displaying) {
-                        return false;
-                    }
-
-                    var $this = $(this);
-                    selectElem($this);
-                });
-
-                // 元素右键菜单
-                $(document).on('contextmenu', '.elem', function (e) {
-                    e.preventDefault();
-
-                    if (e.clientY < 400) {
-                        $elemMenu.css({
-                            'left': e.clientX,
-                            'top': e.clientY
-                        });
-                    } else {
-                        $elemMenu.css({
-                            'left': e.clientX,
-                            'top': e.clientY - $elemMenu.height()
-                        });
-                    }
-
-                    $elemMenu.show();
-
-                    selectElem($(this));
-                });
-                $(document).on('click', function (e) {
-                    $elemMenu.hide();
-                });
-
-
-                // 保存
-                $('#save').on('click', function () {
-                    saveModify();
-
-                    eui.msg('功能暂未实现');
-                    //$('#test-item .viewport').html($('#demo').html());
-                });
-
-                // 发布
-                $('#publish').on('click', function () {
-                    eui.msg('功能暂未实现');
-                });
-
+                let _this = this
 
                 var $target = $('#target');
-                var targetStyle = {
-                    rotate: 0,
-                    scaleX: 0,
-                    scaleY: 0,
-                    translateX: 0,
-                    translateY: 0,
-                    skewX: 0,
-                    skewY: 0,
-                    duration: 0.5,
-                    timingFunction: 'ease'
-                };
 
                 function changeStype() {
                     var transform = '';
-                    transform += 'rotate(' + targetStyle.rotate + 'deg) ';
-                    transform += 'translateX(' + targetStyle.translateX + 'px) ';
-                    transform += 'translateY(' + targetStyle.translateY + 'px) ';
-                    if (targetStyle.scaleX != 0) {
-                        transform += 'scaleX(' + targetStyle.scaleX + ') ';
+                    transform += 'rotate(' + _this.options.rotate + 'deg) ';
+                    transform += 'translateX(' + _this.options.translateX + 'px) ';
+                    transform += 'translateY(' + _this.options.translateY + 'px) ';
+                    if (_this.options.scaleX != 0) {
+                        transform += 'scaleX(' + _this.options.scaleX + ') ';
                     }
-                    if (targetStyle.scaleY != 0) {
-                        transform += 'scaleY(' + targetStyle.scaleY + ') ';
+                    if (_this.options.scaleY != 0) {
+                        transform += 'scaleY(' + _this.options.scaleY + ') ';
                     }
-                    transform += 'skewX(' + targetStyle.skewX + 'deg) ';
-                    transform += 'skewY(' + targetStyle.skewY + 'deg) ';
+                    transform += 'skewX(' + _this.options.skewX + 'deg) ';
+                    transform += 'skewY(' + _this.options.skewY + 'deg) ';
 
                     $target.css('transform', transform);
                 }
+                this.changeStype = changeStype
+            },
+            changeStype() {
+                let _this = this
 
-                // 过渡时间
-                $('#duration').on('change', function () {
-                    targetStyle.duration = $(this).val();
-                });
+                var $target = $('#target');
+                var transform = '';
+                transform += 'rotate(' + _this.options.rotate + 'deg) ';
+                transform += 'translateX(' + _this.options.translateX + 'px) ';
+                transform += 'translateY(' + _this.options.translateY + 'px) ';
+                if (_this.options.scaleX != 0) {
+                    transform += 'scaleX(' + _this.options.scaleX + ') ';
+                }
+                if (_this.options.scaleY != 0) {
+                    transform += 'scaleY(' + _this.options.scaleY + ') ';
+                }
+                transform += 'skewX(' + _this.options.skewX + 'deg) ';
+                transform += 'skewY(' + _this.options.skewY + 'deg) ';
 
-                // 过渡效果
-                $('#timing-function').on('change', function () {
-                    targetStyle.timingFunction = $(this).val();
-                });
-
-                // 旋转
-                $('#rotate').range({
-                    value: 0,
-                    min: -360,
-                    max: 360,
-                    step: 1
-                }).on('slide', function (e) {
-                    targetStyle.rotate = e.value;
-                    changeStype();
-                });
-
-                // X轴位移
-                $('#translateX').range({
-                    value: 0,
-                    min: -500,
-                    max: 500,
-                    step: 1
-                }).on('slide', function (e) {
-                    targetStyle.translateX = e.value;
-                    changeStype();
-                });
-
-                // Y轴位移
-                $('#translateY').range({
-                    value: 0,
-                    min: -500,
-                    max: 500,
-                    step: 1
-                }).on('slide', function (e) {
-                    targetStyle.translateY = e.value;
-                    changeStype();
-                });
-
-                // X轴缩放
-                $('#scaleX').range({
-                    value: 0,
-                    min: -5,
-                    max: 5,
-                    step: 0.1
-                }).on('slide', function (e) {
-                    targetStyle.scaleX = e.value;
-                    changeStype();
-                });
-
-                // Y轴缩放
-                $('#scaleY').range({
-                    value: 0,
-                    min: -5,
-                    max: 5,
-                    step: 0.1
-                }).on('slide', function (e) {
-                    targetStyle.scaleY = e.value;
-                    changeStype();
-                });
-
-                // X轴倾斜
-                $('#skewX').range({
-                    value: 0,
-                    min: -180,
-                    max: 180,
-                    step: 1
-                }).on('slide', function (e) {
-                    targetStyle.skewX = e.value;
-                    changeStype();
-                });
-
-                // y轴倾斜
-                $('#skewY').range({
-                    value: 0,
-                    min: -180,
-                    max: 180,
-                    step: 1
-                }).on('slide', function (e) {
-                    targetStyle.skewY = e.value;
-                    changeStype();
-                });
-
-                // 播放动画
-                $('#play').on('click', function () {
-                    $target.css('transform', 'none');
+                $target.css('transform', transform);
+            },
+            play() {
+                let _this = this
+                var $target = $('#target');
+                $target.css('transform', 'none');
+                setTimeout(function () {
+                    $target.css('transition', 'all ' + _this.options.duration + 's ' + _this.options.timingFunction);
+                    _this.changeStype()
+                    // 动画播放完成后重置transition属性
                     setTimeout(function () {
-                        $target.css('transition', 'all ' + targetStyle.duration + 's ' + targetStyle.timingFunction);
-                        changeStype();
-                        // 动画播放完成后重置transition属性
-                        setTimeout(function () {
-                            $target.css('transition', 'all 0s');
-                        }, targetStyle.duration * 1000)
-                    }, 1000);
+                        $target.css('transition', 'all 0s');
+                    }, _this.options.duration * 1000)
+                }, 1000);
+            },
+            viewCode() {
+                let _this = this
 
-                });
+                this.codeVisible = true
 
-                // 查看代码
-                $('#view-code').on('click', function () {
-                    var code = '.animation {\n    transform: "';
+                var code = '.animation {\n    transform: "';
 
-                    var transform = '';
-                    if (targetStyle.rotate != 0) {
-                        transform += 'rotate(' + targetStyle.rotate + 'deg) ';
-                    }
-                    if (targetStyle.translateX != 0) {
-                        transform += 'translateX(' + targetStyle.translateX + 'px) ';
-                    }
-                    if (targetStyle.translateY != 0) {
-                        transform += 'translateY(' + targetStyle.translateY + 'px) ';
-                    }
-                    if (targetStyle.scaleX != 0) {
-                        transform += 'scaleX(' + targetStyle.scaleX + ') ';
-                    }
-                    if (targetStyle.scaleY != 0) {
-                        transform += 'scaleY(' + targetStyle.scaleY + ') ';
-                    }
-                    if (targetStyle.scaleY != 0) {
-                        transform += 'skewX(' + targetStyle.skewX + 'deg) ';
-                    }
-                    if (targetStyle.scaleY != 0) {
-                        transform += 'skewY(' + targetStyle.skewY + 'deg) ';
-                    }
-                    code += transform
-                    code += '"\n    transition: "all ' + targetStyle.duration + 's ' + targetStyle.timingFunction;
-                    code +=  '"\n}';
-                    $('#code').text(code);
-                    $('#code-box').dialog({
-                        title: '代码',
-                        shadeClose: true
-                    });
-                });
+                var transform = '';
+                if (_this.options.rotate != 0) {
+                    transform += 'rotate(' + _this.options.rotate + 'deg) ';
+                }
+                if (_this.options.translateX != 0) {
+                    transform += 'translateX(' + _this.options.translateX + 'px) ';
+                }
+                if (_this.options.translateY != 0) {
+                    transform += 'translateY(' + _this.options.translateY + 'px) ';
+                }
+                if (_this.options.scaleX != 0) {
+                    transform += 'scaleX(' + _this.options.scaleX + ') ';
+                }
+                if (_this.options.scaleY != 0) {
+                    transform += 'scaleY(' + _this.options.scaleY + ') ';
+                }
+                if (_this.options.scaleY != 0) {
+                    transform += 'skewX(' + _this.options.skewX + 'deg) ';
+                }
+                if (_this.options.scaleY != 0) {
+                    transform += 'skewY(' + _this.options.skewY + 'deg) ';
+                }
+                code += transform
+                code += '"\n    transition: "all ' + _this.options.duration + 's ' + _this.options.timingFunction;
+                code +=  '"\n}';
+                _this.code = code
+            }
+        },
+        watch: {
+            options: {
+                deep: true,
+                handler() {
+                    this.changeStype()
+                }
             }
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.form-item {
+    margin-bottom: 8px;
+}
+.demo-slider {
+    max-width: 200px;
+}
+.demo-input {
+    max-width: 200px;
+}
+.code-drawer {
+    width: 100%;
+    max-width: 400px;
+    .body {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 16px;
+        overflow: auto;
+    }
+}
+.btn {
+    margin-right: 8px;
+}
 </style>
